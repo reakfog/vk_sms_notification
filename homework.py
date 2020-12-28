@@ -16,8 +16,8 @@ def get_status(user_id):
     user_status = requests.post('https://api.vk.com/method/users.get', params=params)
     return user_status.json()['response'][0]['online']
 
-
-def send_sms(sms_text):
+# send_sms
+def sms_sender(sms_text):
     account_sid = os.getenv('TWILIO_SID')
     auth_token = os.getenv('TWILIO_TOKEN')
     client = Client(account_sid, auth_token)
@@ -33,6 +33,6 @@ if __name__ == '__main__':
     vk_id = input('Введите id: ')
     while True:
         if get_status(vk_id) == 1:
-            send_sms(f'{vk_id} сейчас онлайн!')
+            sms_sender(f'{vk_id} сейчас онлайн!')
             break
         time.sleep(5)
