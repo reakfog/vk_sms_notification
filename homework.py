@@ -8,7 +8,7 @@ load_dotenv()
 
 def get_status(user_id):
     params = {
-        'user_id': user_id,
+        'user_ids': user_id,
         'v': '5.92',
         'access_token': os.getenv('VK_TOKEN'),
         'fields': 'online'
@@ -26,11 +26,11 @@ def send_sms(sms_text):
         from_=os.getenv('NUMBER_FROM'),
         to=os.getenv('NUMBER_TO')
     )
-    return message
+    return message.sid
 
 
 if __name__ == '__main__':
-    vk_id = input('Введите id ')
+    vk_id = input('Введите id: ')
     while True:
         if get_status(vk_id) == 1:
             send_sms(f'{vk_id} сейчас онлайн!')
